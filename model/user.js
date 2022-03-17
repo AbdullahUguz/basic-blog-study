@@ -1,1 +1,0 @@
-const connection =require('../utility/database');

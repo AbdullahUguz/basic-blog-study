@@ -1,11 +1,13 @@
-const mysql = require('mysql2');
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize(
+    'argerf-db',
+    'root',
+    '12345',
+    {
+        dialect:'mysql',
+        host:'localhost'
+    }
+);
 
-const connection = mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    database:'argerf-db',
-    password:'12345'
-});
-
-module.exports =connection.promise();
+module.exports = sequelize;
 
