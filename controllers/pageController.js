@@ -5,3 +5,7 @@ exports.getRegisterPage = (req, res) => {
 exports.getLoginPage = (req, res) => {
   res.status(200).render('login');
 };
+
+exports.getIndexPage = (req, res) => {
+  res.status(200).render('index');
+};
