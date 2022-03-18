@@ -1,17 +1,34 @@
 const express = require('express');
 const ejs = require('ejs')
-
-const sequelize = require('./utility/database');
-const User = require('./models/user')
+const bodyParser = require('body-parser')
+const methodOverride = require('method-override');
 
 const session = require('express-session');
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
+
+const sequelize = require('./utility/database');
+const User = require('./models/user')
 
 const userRoute = require('./routes/userRoute');
 const pageRoute = require('./routes/pageRoute');
 
 const app= express();
 
+// Global Variable
+global.userIN = null;
+
+// Template Engine
+app.set('view engine', 'ejs');
+
+// Middleware
+app.use(express.static('public'))
+app.use(bodyParser.json())
+app.use(express.urlencoded({extended: true }));
+app.use(methodOverride('_method',{
+  methods:['POST','GET']
+}));
+
+// Session
 app.use(
   session({
     secret: "keyboard cat",
@@ -26,15 +43,6 @@ app.use(
 
 sequelize.sync();
 
-app.set('view engine', 'ejs');
-
-// Global Variable
-global.userIN = null;
-
-// Middleware
-app.use(express.static('public'))
-app.use(express.urlencoded({ extended:true }));
-
 // Route
 app.use('*',(req,res,next)=>{
   userIN = req.session.userID;
@@ -44,9 +52,8 @@ app.use('*',(req,res,next)=>{
 app.use('/',pageRoute);
 app.use('/users', userRoute);
 
-
 const PORT=3000;
 
 app.listen(PORT,()=>{
-    console.log(`Sunucu ${PORT} portundan başilatıldı `);
+    console.log(`Sunucu ${PORT} portundan baslatildi`);
 })

@@ -2,10 +2,12 @@ const User = require('../models/user');
 
 exports.createUser = async (req, res) => {
   try {
+    console.log(req.body)
     const user = await User.create(req.body);
     res.status(201).redirect('/login');
   } catch (error) {
     console.log('there is a problem');
+    console.log(error)
     res.status(404);
   }
 };
@@ -15,19 +17,10 @@ exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ where: { email: email } });
-
-    if (user) {
-      if (password === user.password) {
-
-        // user session
-        console.log(user.id);
-
-        req.session.userID = user.id;
-        res.status(200).redirect('/users/dashboard'); 
-
-      } else {
-        res.status(400).redirect('/login');
-      }
+    if (password === user.password) {
+      req.session.userID = user.id;
+      res.redirect('/');
+      // res.redirect('/users/dashboard');                              // haat burda bak
     } else {
       res.status(400).redirect('/login');
     }
@@ -40,32 +33,41 @@ exports.loginUser = async (req, res) => {
 };
 exports.logoutUser = async (req, res) => {
   try {
+    console.log('logout da', req.session.userID);
     await req.session.destroy(() => {
       res.redirect('/');
-      });
+    });
   } catch (error) {
     console.log(error);
     res.status(400);
-  } 
-  
+  }
 };
 
 exports.getDashboardPage = async (req, res) => {
-
+  console.log('dashboard da: ', req.session.userID);
   try {
-    console.log(req.session.userID);
-
     const user = await User.findByPk(req.session.userID);
-
-    console.log('user role: ',user.role);
-    console.log('user id: ',user.id)
-
-    res.status(200).render('/dashboard', {
+    const users =await User.findAll();
+    res.status(200).render('dashboard', {
       user,
+      users
     });
-
   } catch (error) {
-    console.log(error)
-    res.status(400).redirect('/login')
+    console.log(error);
+    res.status(400).redirect('/login');
   }
 };
+
+exports.deleteUser = async (req,res) => {
+  try{
+    const user = await User.findByPk(req.params.id);
+    await user.destroy();
+    res.status(200).redirect('/users/dashboard');
+  }catch(error){
+    res.status(400).json({
+      status: 'fail',
+      error,
+    });
+  } 
+}
+
