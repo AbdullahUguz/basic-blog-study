@@ -1,0 +1,129 @@
+<%- include('partials/_header') -%>
+
+<body>
+
+  <%- include('partials/_navigation') -%>
+  
+
+  <!-- Main Content -->
+  <div class="container" style="margin-top: 10%">
+     
+    <% if(user.role == 'user') { %>
+    <div class="row mt 5">
+      <h2>User : <%=user.username %></h2>
+      <h3><%=user.username %></h3>
+      <p>About user</p>
+    </div>
+    <% } %>
+    
+    <% if(user.role == 'admin') { %>
+    <div class="row mt-5">
+        <div class="col-lg-12">
+          <h2>USERS</h2>
+            <table class="table mb-5">
+            <thead>
+              <tr>
+              <th scope="col">#ID</th>
+              <th scope="col">Email</th>
+              <th scope="col">Role</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+          
+              <tr>
+                <th scope="row">id</th>
+                <td>email1</td>
+                <td>role1</td>
+                <td>
+                  <a href="#"
+                    onclick = "return confirm('Are You Sure ?')"
+                    class="btn btn-warning rounded-0 text-white">
+                    <span>Update</span>
+                  </a> 
+                </td>
+                <td>
+                  <a href="#"
+                    onclick = "return confirm('Are You Sure ?')"
+                    class="btn btn-danger rounded-0 text-white">
+                    <span>DELETE</span>
+                  </a> 
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row">id</th>
+                <td>email1</td>
+                <td>role1</td>
+                <td>
+                  <a href="#"
+                    onclick = "return confirm('Are You Sure ?')"
+                    class="btn btn-warning rounded-0 text-white">
+                    <span>Update</span>
+                  </a> 
+                </td>
+                <td>
+                  <a href="#"
+                    onclick = "return confirm('Are You Sure ?')"
+                    class="btn btn-danger rounded-0 text-white">
+                    <span>DELETE</span>
+                  </a> 
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row">id</th>
+                <td>email1</td>
+                <td>role1</td>
+                <td>
+                  <a href="#"
+                    onclick = "return confirm('Are You Sure ?')"
+                    class="btn btn-warning rounded-0 text-white">
+                    <span>Update</span>
+                  </a> 
+                </td>
+                <td>
+                  <a href="#"
+                    onclick = "return confirm('Are You Sure ?')"
+                    class="btn btn-danger rounded-0 text-white">
+                    <span>DELETE</span>
+                  </a> 
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row">id</th>
+                <td>email1</td>
+                <td>role1</td>
+                <td>
+                  <a href="#"
+                    onclick = "return confirm('Are You Sure ?')"
+                    class="btn btn-warning rounded-0 text-white">
+                    <span>Update</span>
+                  </a> 
+                </td>
+                <td>
+                  <a href="#"
+                    onclick = "return confirm('Are You Sure ?')"
+                    class="btn btn-danger rounded-0 text-white">
+                    <span>DELETE</span>
+                  </a> 
+                </td>
+              </tr>
+            
+              </tbody>
+            </table>
+        </div>
+      </div><!-- end row -->
+    </div>
+    <% } %>
+
+  </div>
+  
+
+  <hr>
+  <%- include('partials/_footer') -%>
+</body>
+
+</html>
