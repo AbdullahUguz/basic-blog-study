@@ -20,7 +20,7 @@ exports.loginUser = async (req, res) => {
     if (password === user.password) {
       req.session.userID = user.id;
       res.redirect('/');
-      // res.redirect('/users/dashboard');                              // haat burda bak
+    // res.redirect('/users/dashboard');                              // hata burda bak
     } else {
       res.status(400).redirect('/login');
     }
