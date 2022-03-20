@@ -1,10 +1,15 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #17a2b8;" id="mainNav">
-    <div class="container">
+    <div class="container-fluid">
       <a class="navbar-brand" href="/">ArgeRF Study</a>
+
+      <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+        aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation" onclick="myFunction()"><span class="dark-blue-text"><i
+        class="fas fa-bars fa-1x"></i></span>
+      </button>
       
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
+      <div class="collapse navbar-collapse" id="myLinks">
+        <ul class="navbar-nav ml-auto" >
           <li class="nav-item">
             <a class="nav-link" href="/">Home</a>
           </li>
@@ -27,4 +32,16 @@
         </ul>
       </div>
     </div>
+    
   </nav>
+
+  <script>
+    function myFunction() {
+      var x = document.getElementById("myLinks");
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
+      }
+    }
+    </script>

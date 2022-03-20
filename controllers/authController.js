@@ -4,7 +4,7 @@ exports.createUser = async (req, res) => {
   try {
     console.log(req.body)
     const user = await User.create(req.body);
-    res.status(201).redirect('/login');
+    res.status(201).redirect('/users/dashboard');
   } catch (error) {
     console.log('there is a problem');
     console.log(error)
@@ -51,7 +51,8 @@ exports.getDashboardPage = async (req, res) => {
     const users =await User.findAll();
     res.status(200).render('dashboard', {
       user,
-      users
+      users,
+      msg:global.msg
     });
   } catch (error) {
     console.log(error);

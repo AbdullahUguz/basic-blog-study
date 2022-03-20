@@ -5,111 +5,21 @@
     <%- include('partials/_navigation') -%>
 
       <!-- Main Content -->
-      <div class="container" style="margin-top: 10%">
-
+      <div class="container" style="margin-top: 10%;">
 
         <% if(user.role=='user' ) { %>
           <div class="container">
-            <div class="row">
-              <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="row mt-5">
+              <div class="col-lg-12 col-md-10 mx-auto">
                 <div class="post-preview">
-                  <h2 class="text-info">Lorem Ipsum</h2>
+                  <h2 class="text-info">
+                    <%=user.username%>
+                  </h2>
                   <p class="text-info">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio,
-                    molestias?
+                    <%=user.username%> Dashboad Paneli
                   </p>
                 </div>
               </div>
-
-              <!-- Mqtt Bilgisi -->
-              <div class="col-lg-8 col-md-10 mx-auto">
-                <h2 class="text-info mb-4">Mqtt Operation</h2>
-                <!-- Publish -->
-                <div class="form-row">
-                  <form action="" class="mr-5">
-                    <div class="form-group col-sm-12">
-                      <label class="text-info">Publish Topic</label>
-                      <input type="text" class="form-control" id="publishTopic" placeholder="Publish Topic">
-                    </div>
-                    <div class="form-group col-sm-12">
-                      <label class="text-info" for="exampleFormControlTextarea1">Message</label>
-                      <textarea class="form-control" id="message" rows="3"></textarea>
-                    </div>
-                    <div class="form-group col-sm-12">
-                      <button type="submit" class="btn btn-primary">Publish</button>
-                    </div>
-                  </form>
-
-                  <div class="form-group col-sm-3 ml-5">
-                    <!-- Button subscribe modal -->
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
-                      Add New Topic Subscribe
-                    </button>
-                  </div>
-
-                  <div class="form-group col-sm-10 mt-5">
-                    <table class="table">
-                      <thead class="thead-light">
-                        <tr>
-                          <th scope="col" class="text-info">Message</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <!-- Subscribe 
-                  <form action="" class="ml-5">
-                    <div class="form-group col-sm-12">
-                      <label class="text-info">Subscribe Publish Topic</label>
-                      <input type="text" class="form-control" id="subscribeTopic" placeholder="Subscribe Publish Topic">
-                    </div>
-                    <div class="form-group col-sm-12">
-                      <label class="text-info" for="exampleFormControlTextarea1">Message</label>
-                      <textarea class="form-control" id="message" rows="3"></textarea>
-                    </div>
-                    <div class="form-group col-sm-12">
-                      <button type="submit" class="btn btn-primary">Subscribe</button>
-                    </div>
-                  </form>
-                  -->
-                  <!-- Subscribe Add Publish Modal -->
-                  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                        <div class="modal-body">
-                          <form action="">
-                            <div class="form-group col-sm-12">
-                              <label class="text-info">Subscribe Publish Topic</label>
-                              <input type="text" class="form-control" id="subscribeTopic" placeholder="Subscribe Publish Topic">
-                            </div>
-                            <div class="form-group col-sm-12">
-                              <button type="submit" class="btn btn-info btn-radius btn-brd grd1">
-                                Subscribe
-                              </button>
-                              <button type="submit" class="btn btn-danger btn-radius btn-brd grd1"
-                                data-dismiss="modal" aria-hidden="true">
-                                Cancel
-                              </button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-              </div>
-
-
-
             </div>
           </div>
 
@@ -118,9 +28,10 @@
             <% if(user.role=='admin' ) { %>
               <div class="container">
                 <div class="row mt-5">
-                  <div class="col-lg-12 col-md-10 mx-auto">
+
+                  <div class="form-group col-sm-12 mx-auto table-responsive" id="no-more-tables">
                     <h2>USERS</h2>
-                    <table class="table mb-5">
+                    <table class="table mb-5 ">
                       <thead>
                         <tr>
                           <th scope="col">#ID</th>
@@ -217,16 +128,14 @@
                           </div>
 
                           <% } %>
-                            <tr>
-                              <td>
-                                <button class="btn btn-lg btn-info rounded-0 text-white " href="#" data-toggle="modal"
-                                  data-target="#addUser">
-                                  <span>ADD USER</span>
-                                </button>
-                              </td>
-                            </tr>
                       </tbody>
                     </table>
+                    <div>
+                      <button class="btn btn-lg btn-info p-3 rounded-0 text-white mb-3" href="#" data-toggle="modal"
+                        data-target="#addUser">
+                        <span>ADD USER</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <!-- end row -->
@@ -282,14 +191,57 @@
                     </div>
                   </div>
                 </div>
-                <% } %>
               </div>
-              <hr />
+              <% } %>
+                <hr>
+
+                <!-- Mqtt Bilgisi -->
+                <div class="col-lg-12 col-md-10 mx-auto">
+                  <h2 class="text-info mb-4">Mqtt Operation</h2>
+                  <!-- Publish -->
+                  <div class="form-row">
+                    <form method="POST" action="/mqtt/publish" class="mr-5">
+                      <!--
+                      <div class="form-group col-sm-12">
+                        <label class="text-info">Publish Topic</label>
+                        <input type="text" class="form-control" id="publishTopic" name="publishTopic"
+                          placeholder="Publish Topic">
+                      </div>
+                      -->
+                      <div class="form-group col-sm-12">
+                        <label class="text-info" for="exampleFormControlTextarea1">Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+                      </div>
+                      <div class="form-group col-sm-12">
+                        <button type="submit" class="btn btn-primary">Publish</button>
+                      </div>
+                    </form>
+
+                    <% if(msg) { %>
+                    <div class="form-group col-sm-12 mt-5">
+                      <table class="table">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col" class="text-info">Message</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row"><%=msg%></th>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <% } %>
+                </div>
+
+                <hr>
+
       </div>
 
-
-
       <%- include('partials/_footer') -%>
+
   </body>
 
   </html>

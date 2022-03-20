@@ -11,11 +11,13 @@ const User = require('./models/user')
 
 const userRoute = require('./routes/userRoute');
 const pageRoute = require('./routes/pageRoute');
+const mqttRoute = require('./routes/mqttRoute');
 
 const app= express();
 
 // Global Variable
 global.userIN = null;
+global.msg=null;
 
 // Template Engine
 app.set('view engine', 'ejs');
@@ -51,6 +53,7 @@ app.use('*',(req,res,next)=>{
 
 app.use('/',pageRoute);
 app.use('/users', userRoute);
+app.use('/mqtt', mqttRoute);
 
 const PORT=3000;
 
