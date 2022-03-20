@@ -31,6 +31,7 @@ exports.loginUser = async (req, res) => {
     });
   }
 };
+
 exports.logoutUser = async (req, res) => {
   try {
     console.log('logout da', req.session.userID);
@@ -69,5 +70,27 @@ exports.deleteUser = async (req,res) => {
       error,
     });
   } 
+};
+
+exports.updateUser = async (req,res) => {
+  try{
+    const user = await User.findByPk(req.params.id);
+    user.username = req.body.username;
+    user.email = req.body.email;
+    user.password = req.body.password;
+    user.role = req.body.role;
+
+    await user.save();
+
+    res.status(200).redirect('/users/dashboard');
+
+  }catch(error){
+    res.status(400).json({
+      status: 'fail',
+      error,
+    });
+  } 
 }
+
+
 
