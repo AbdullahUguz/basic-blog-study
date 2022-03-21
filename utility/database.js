@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(
-    'argerf-db',
-    'root',
-    '12345',
+    'argerf-db',                       // database ismi
+    'root',                            // root         
+    '12345',                           // password
     {
         dialect:'mysql',
         host:'localhost'

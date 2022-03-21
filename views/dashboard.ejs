@@ -10,6 +10,13 @@
         <% if(user.role=='user' ) { %>
           <div class="container">
             <div class="row mt-5">
+              <% if(flashMessages) { %>
+                <% if(flashMessages.success) { %> 
+                    <div class="alert alert-success"> <%= flashMessages.success %></div>
+                <%} else if(flashMessages.error) { %> 
+                    <div class="alert alert-danger"> <%= flashMessages.error %></div>
+                <% } %>
+            <% } %>
               <div class="col-lg-12 col-md-10 mx-auto">
                 <div class="post-preview">
                   <h2 class="text-info">
@@ -28,6 +35,15 @@
             <% if(user.role=='admin' ) { %>
               <div class="container">
                 <div class="row mt-5">
+                  <div class=" col-lg-12 col-md-10 col-sm-10 mb-3">
+                    <% if(flashMessages) { %>
+                        <% if(flashMessages.success) { %> 
+                            <div class="alert alert-success"> <%= flashMessages.success %></div>
+                        <%} else if(flashMessages.error) { %> 
+                            <div class="alert alert-danger"> <%= flashMessages.error %></div>
+                        <% } %>
+                    <% } %>
+               </div>
 
                   <div class="form-group col-sm-12 mx-auto table-responsive" id="no-more-tables">
                     <h2>USERS</h2>
@@ -85,26 +101,26 @@
                                         <div class="form-group">
                                           <div class="col-sm-12">
                                             <input type="text" name="username" value="<%= users[i].username %>"
-                                              class="form-control" placeholder="Username">
+                                              class="form-control" placeholder="Username" required>
                                           </div>
                                         </div>
                                         <div class="form-group">
                                           <div class="col-sm-12">
                                             <input type="email" name="email" value="<%= users[i].email %>"
-                                              class="form-control" placeholder="Email">
+                                              class="form-control" placeholder="Email" required>
                                           </div>
                                         </div>
                                         <div class="form-group">
                                           <div class="col-sm-12">
                                             <input type="password" name="password" value="<%= users[i].password %>"
-                                              class="form-control" placeholder="Password">
+                                              class="form-control" placeholder="Password" required>
                                           </div>
                                         </div>
                                         <div class="form-group">
                                           <div class="col-sm-12">
                                             <select class="form-control" name="role">
-                                              <option value="admin">admin</option>
-                                              <option value="user">user</option>
+                                              <option value="admin">user</option>
+                                              <option value="user">admin</option>
                                             </select>
                                           </div>
                                         </div>
@@ -148,29 +164,36 @@
                     <div class="modal-body customer-box">
                       <!-- Tab panes -->
                       <div class="tab-content">
+                        <% if(flashMessages) { %>
+                          <% if(flashMessages.success) { %> 
+                              <div class="alert alert-success"> <%= flashMessages.success %></div>
+                          <%} else if(flashMessages.error) { %> 
+                              <div class="alert alert-danger"> <%= flashMessages.error %></div>
+                          <% } %>
+                        <% } %>
                         <h3 class="text-info"> Add User</h3>
                         <div class="tab-pane active" id="Login">
-                          <form method="POST" action="/users/signup" class="form-horizontal">
+                          <form method="POST" action="/users/admin/createUser" class="form-horizontal">
                             <div class="form-group">
                               <div class="col-sm-12">
-                                <input type="text" name="username" class="form-control" placeholder="Username">
+                                <input type="text" name="username" class="form-control" placeholder="Username" required>
                               </div>
                             </div>
                             <div class="form-group">
                               <div class="col-sm-12">
-                                <input type="email" name="email" class="form-control" placeholder="Email">
+                                <input type="email" name="email" class="form-control" placeholder="Email" required>
                               </div>
                             </div>
                             <div class="form-group">
                               <div class="col-sm-12">
-                                <input type="password" name="password" class="form-control" placeholder="Password">
+                                <input type="password" name="password" class="form-control" placeholder="Password" required>
                               </div>
                             </div>
                             <div class="form-group">
                               <div class="col-sm-12">
                                 <select class="form-control" name="role">
-                                  <option value="admin">admin</option>
-                                  <option value="user">user</option>
+                                  <option value="admin">user</option>
+                                  <option value="user">admin</option>
                                 </select>
                               </div>
                             </div>

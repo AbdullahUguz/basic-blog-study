@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override');
 
 const session = require('express-session');
-const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const flash = require('connect-flash');
 
 const sequelize = require('./utility/database');
 const User = require('./models/user')
@@ -29,19 +29,21 @@ app.use(express.urlencoded({extended: true }));
 app.use(methodOverride('_method',{
   methods:['POST','GET']
 }));
-
 // Session
 app.use(
   session({
     secret: "keyboard cat",
     saveUninitialized: true,
-    store: new SequelizeStore({
-      db: sequelize,
-    }),
-    resave: false, 
-    proxy: true, 
+    resave: false,  
   })
 );
+
+// Flash Message
+app.use(flash());
+app.use((req,res,next) => {
+  res.locals.flashMessages = req.flash();
+  next();
+});
 
 sequelize.sync();
 

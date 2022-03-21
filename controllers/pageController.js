@@ -7,7 +7,6 @@ exports.getLoginPage = (req, res) => {
 };
 
 exports.getIndexPage = (req, res) => {
-  console.log("page de ındex de: ",req.session.userID);
   res.status(200).render('index');
 };
 

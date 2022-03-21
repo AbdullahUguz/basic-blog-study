@@ -7,8 +7,10 @@ exports.publish = async (req, res) => {
     // mesaj gonderilen kısım
     client.publish(topicName, messages);
     global.msg=messages;
+    req.flash('success', 'Your message sended!');
     res.status(200).redirect('/users/dashboard');
   } catch (error) {
+    req.flash('error', 'Your message did not send!');
     res.status(400).json({
       status: 'fail',
       error,

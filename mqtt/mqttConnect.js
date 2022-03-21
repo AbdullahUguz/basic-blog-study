@@ -8,15 +8,10 @@ client.on('connect',function(){
     
     client.subscribe(topicName,function(err){
         if(!err){
-            console.log('subscribed');
-        /*
-        // mesaj gonderilen kısım
-        client.publish(topicName,mesaj);
-        */
-        }
-        
-    })
-    
+            console.log('subscribed');        
+        }  
+    })  
 })
+
 
 module.exports= client;

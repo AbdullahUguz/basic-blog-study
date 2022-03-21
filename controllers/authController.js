@@ -1,14 +1,33 @@
 const User = require('../models/user');
 
+const { validationResult } = require('express-validator');
+
 exports.createUser = async (req, res) => {
   try {
-    console.log(req.body)
-    const user = await User.create(req.body);
+    await User.create(req.body);
     res.status(201).redirect('/users/dashboard');
   } catch (error) {
-    console.log('there is a problem');
-    console.log(error)
-    res.status(404);
+    const errors = validationResult(req);
+
+    for (let i = 0; i < errors.array().length; i++) {
+      req.flash('error', `${errors.array()[i].msg} `);
+    }
+    res.status(404).redirect('/register');
+  }
+};
+
+exports.getDashboardPage = async (req, res) => {
+  try {
+    const user = await User.findByPk(req.session.userID);
+    const users = await User.findAll();
+    res.status(200).render('dashboard', {
+      user,
+      users,
+      msg: global.msg,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).redirect('/login');
   }
 };
 
@@ -17,11 +36,16 @@ exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ where: { email: email } });
-    if (password === user.password) {
-      req.session.userID = user.id;
-      res.redirect('/');
-    // res.redirect('/users/dashboard');                              // hata burda bak
+    if (user) {
+      if (password === user.password) {
+        req.session.userID = user.id;
+        res.status(200).redirect('/users/dashboard');
+      } else {
+        req.flash('error', 'Your password is not correct!');
+        res.status(400).redirect('/login');
+      }
     } else {
+      req.flash('error', 'User is not exist!');
       res.status(400).redirect('/login');
     }
   } catch (error) {
@@ -34,7 +58,6 @@ exports.loginUser = async (req, res) => {
 
 exports.logoutUser = async (req, res) => {
   try {
-    console.log('logout da', req.session.userID);
     await req.session.destroy(() => {
       res.redirect('/');
     });
@@ -44,37 +67,22 @@ exports.logoutUser = async (req, res) => {
   }
 };
 
-exports.getDashboardPage = async (req, res) => {
-  console.log('dashboard da: ', req.session.userID);
+exports.deleteUser = async (req, res) => {
   try {
-    const user = await User.findByPk(req.session.userID);
-    const users =await User.findAll();
-    res.status(200).render('dashboard', {
-      user,
-      users,
-      msg:global.msg
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(400).redirect('/login');
-  }
-};
-
-exports.deleteUser = async (req,res) => {
-  try{
     const user = await User.findByPk(req.params.id);
     await user.destroy();
+    req.flash('success', `${user.username} has been removed succesfully!`);
     res.status(200).redirect('/users/dashboard');
-  }catch(error){
+  } catch (error) {
     res.status(400).json({
       status: 'fail',
       error,
     });
-  } 
+  }
 };
 
-exports.updateUser = async (req,res) => {
-  try{
+exports.updateUser = async (req, res) => {
+  try {
     const user = await User.findByPk(req.params.id);
     user.username = req.body.username;
     user.email = req.body.email;
@@ -82,16 +90,27 @@ exports.updateUser = async (req,res) => {
     user.role = req.body.role;
 
     await user.save();
-
+    req.flash('success', `${user.username} has been updated succesfully!`);
     res.status(200).redirect('/users/dashboard');
-
-  }catch(error){
+  } catch (error) {
     res.status(400).json({
       status: 'fail',
       error,
     });
-  } 
-}
+  }
+};
 
+exports.adminCreateUser = async (req, res) => {
+  try {
+    console.log(req.body);
+    await User.create(req.body);
+    res.status(201).redirect('/users/dashboard');
+  } catch (error) {
+    const errors = validationResult(req);
 
-
+    for (let i = 0; i < errors.array().length; i++) {
+      req.flash('error', `${errors.array()[i].msg} `);
+    }
+    res.status(404).redirect('/users/dashboard');
+  }
+};
