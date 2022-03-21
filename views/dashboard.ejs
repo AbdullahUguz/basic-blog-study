@@ -11,22 +11,26 @@
           <div class="container">
             <div class="row mt-5">
               <% if(flashMessages) { %>
-                <% if(flashMessages.success) { %> 
-                    <div class="alert alert-success"> <%= flashMessages.success %></div>
-                <%} else if(flashMessages.error) { %> 
-                    <div class="alert alert-danger"> <%= flashMessages.error %></div>
-                <% } %>
-            <% } %>
-              <div class="col-lg-12 col-md-10 mx-auto">
-                <div class="post-preview">
-                  <h2 class="text-info">
-                    <%=user.username%>
-                  </h2>
-                  <p class="text-info">
-                    <%=user.username%> Dashboad Paneli
-                  </p>
-                </div>
-              </div>
+                <% if(flashMessages.success) { %>
+                  <div class="alert alert-success">
+                    <%= flashMessages.success %>
+                  </div>
+                  <%} else if(flashMessages.error) { %>
+                    <div class="alert alert-danger">
+                      <%= flashMessages.error %>
+                    </div>
+                    <% } %>
+                      <% } %>
+                        <div class="col-lg-12 col-md-10 mx-auto">
+                          <div class="post-preview">
+                            <h2 class="text-info">
+                              <%=user.username%>
+                            </h2>
+                            <p class="text-info">
+                              <%=user.username%> Dashboad Paneli
+                            </p>
+                          </div>
+                        </div>
             </div>
           </div>
 
@@ -37,13 +41,17 @@
                 <div class="row mt-5">
                   <div class=" col-lg-12 col-md-10 col-sm-10 mb-3">
                     <% if(flashMessages) { %>
-                        <% if(flashMessages.success) { %> 
-                            <div class="alert alert-success"> <%= flashMessages.success %></div>
-                        <%} else if(flashMessages.error) { %> 
-                            <div class="alert alert-danger"> <%= flashMessages.error %></div>
-                        <% } %>
-                    <% } %>
-               </div>
+                      <% if(flashMessages.success) { %>
+                        <div class="alert alert-success">
+                          <%= flashMessages.success %>
+                        </div>
+                        <%} else if(flashMessages.error) { %>
+                          <div class="alert alert-danger">
+                            <%= flashMessages.error %>
+                          </div>
+                          <% } %>
+                            <% } %>
+                  </div>
 
                   <div class="form-group col-sm-12 mx-auto table-responsive" id="no-more-tables">
                     <h2>USERS</h2>
@@ -119,8 +127,8 @@
                                         <div class="form-group">
                                           <div class="col-sm-12">
                                             <select class="form-control" name="role">
-                                              <option value="admin">user</option>
-                                              <option value="user">admin</option>
+                                              <option value="user">user</option>
+                                              <option value="admin">admin</option>
                                             </select>
                                           </div>
                                         </div>
@@ -164,13 +172,6 @@
                     <div class="modal-body customer-box">
                       <!-- Tab panes -->
                       <div class="tab-content">
-                        <% if(flashMessages) { %>
-                          <% if(flashMessages.success) { %> 
-                              <div class="alert alert-success"> <%= flashMessages.success %></div>
-                          <%} else if(flashMessages.error) { %> 
-                              <div class="alert alert-danger"> <%= flashMessages.error %></div>
-                          <% } %>
-                        <% } %>
                         <h3 class="text-info"> Add User</h3>
                         <div class="tab-pane active" id="Login">
                           <form method="POST" action="/users/admin/createUser" class="form-horizontal">
@@ -186,14 +187,15 @@
                             </div>
                             <div class="form-group">
                               <div class="col-sm-12">
-                                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                                <input type="password" name="password" class="form-control" placeholder="Password"
+                                  required>
                               </div>
                             </div>
                             <div class="form-group">
                               <div class="col-sm-12">
                                 <select class="form-control" name="role">
-                                  <option value="admin">user</option>
-                                  <option value="user">admin</option>
+                                  <option value="user">user</option>
+                                  <option value="admin">admin</option>
                                 </select>
                               </div>
                             </div>
@@ -220,45 +222,75 @@
 
                 <!-- Mqtt Bilgisi -->
                 <div class="col-lg-12 col-md-10 mx-auto">
+                 
                   <h2 class="text-info mb-4">Mqtt Operation</h2>
                   <!-- Publish -->
+
                   <div class="form-row">
-                    <form method="POST" action="/mqtt/publish" class="mr-5">
-                      <!--
-                      <div class="form-group col-sm-12">
-                        <label class="text-info">Publish Topic</label>
-                        <input type="text" class="form-control" id="publishTopic" name="publishTopic"
-                          placeholder="Publish Topic">
-                      </div>
-                      -->
-                      <div class="form-group col-sm-12">
-                        <label class="text-info" for="exampleFormControlTextarea1">Message</label>
-                        <textarea class="form-control" id="message" name="message" rows="3"></textarea>
-                      </div>
-                      <div class="form-group col-sm-12">
-                        <button type="submit" class="btn btn-primary">Publish</button>
-                      </div>
-                    </form>
-
-                    <% if(msg) { %>
-                    <div class="form-group col-sm-12 mt-5">
-                      <table class="table">
-                        <thead class="thead-light">
-                          <tr>
-                            <th scope="col" class="text-info">Message</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row"><%=msg%></th>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <!-- Publish Message -->
+                    <div class="col-sm-6">
+                      <form method="POST" action="/mqtt/publish" class="mr-5">
+                        <div class="form-group col-sm-12">
+                          <label class="text-info" for="exampleFormControlTextarea1">Message</label>
+                          <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group col-sm-12">
+                          <button type="submit" class="btn btn-primary">Publish</button>
+                        </div>
+                      </form>
+                      <% if(msg) { %>
+                        <div class="form-group col-sm-6 mt-5">
+                          <table class="table">
+                            <thead class="thead-light">
+                              <tr>
+                                <th scope="col" class="text-info">Local Publish Messages</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% for(let i=msg.length; i> 0 ; i--) { %>
+                                <tr>
+                                  <th scope="row">
+                                    <%=msg[i-1]%>
+                                  </th>
+                                </tr>
+                                <% } %>
+                            </tbody>
+                          </table>
+                        </div>
+                      <% } %>
                     </div>
-                  </div>
-                  <% } %>
-                </div>
 
+                    <!-- Get Publish Message -->
+                    <div class="col-sm-6">
+                        <div class="ml-5" style="margin-top:0%;">
+                          <div class="form-group col-sm-12">
+                            <p class="text-info">Globaldeki Mesajları Çekmek İçin Get Messages Butonun Basınız </p>
+                            <a href="/users/dashboard" class="btn btn-info mt-3">Get Messages</a>
+                          </div>
+                          <% if(getMsg) { %>
+                            <div class="form-group col-sm-6 mt-5">
+                              <table class="table">
+                                <thead class="thead-light">
+                                  <tr>
+                                    <th scope="col" class="text-info">Global Publish Messages</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <% for(let i=getMsg.length; i> 0 ; i--) { %>
+                                    <tr>
+                                      <th scope="row">
+                                        <%=getMsg[i-1]%>
+                                      </th>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                              </table>
+                            </div>
+                          <% } %>
+                        </div>
+                    </div>
+                  
+                </div>
                 <hr>
 
       </div>

@@ -10,8 +10,14 @@ client.on('connect',function(){
         if(!err){
             console.log('subscribed');        
         }  
-    })  
-})
+    });
+});
+
+
+client.on('message',function(topic,message){
+    console.log(message.toString());
+    global.getMsg.push(message.toString());
+});
 
 
 module.exports= client;

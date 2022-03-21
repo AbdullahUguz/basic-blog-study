@@ -23,7 +23,8 @@ exports.getDashboardPage = async (req, res) => {
     res.status(200).render('dashboard', {
       user,
       users,
-      msg: global.msg,
+      msg:global.msg,
+      getMsg: global.getMsg
     });
   } catch (error) {
     console.log(error);
@@ -93,18 +94,18 @@ exports.updateUser = async (req, res) => {
     req.flash('success', `${user.username} has been updated succesfully!`);
     res.status(200).redirect('/users/dashboard');
   } catch (error) {
-    res.status(400).json({
-      status: 'fail',
-      error,
-    });
+    const errors = validationResult(req);
+    for (let i = 0; i < errors.array().length; i++) {
+      req.flash('error', `${errors.array()[i].msg} `);
+    }
+    res.status(404).redirect('/users/dashboard');
   }
 };
 
 exports.adminCreateUser = async (req, res) => {
   try {
-    console.log(req.body);
     const user = await User.create(req.body);
-    req.flash('error', `${user.username} added`);
+    req.flash('success', `${user.username} added`);
     res.status(201).redirect('/users/dashboard');
   } catch (error) {
     const errors = validationResult(req);

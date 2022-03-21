@@ -17,7 +17,9 @@ const app= express();
 
 // Global Variable
 global.userIN = null;
-global.msg=null;
+global.msg=[];
+global.getMsg=[];
+
 
 // Template Engine
 app.set('view engine', 'ejs');

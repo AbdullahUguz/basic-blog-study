@@ -16,7 +16,7 @@ router.route('/login').post(authController.loginUser);
 router.route('/logout').get(authController.logoutUser);
 router.route('/dashboard').get(authMiddleware,authController.getDashboardPage);
 router.route('/:id').delete(authController.deleteUser);
-router.route('/:id').put(authController.updateUser);
+router.route('/:id').put(userValidation(),authController.updateUser);
 
 function userValidation(){
   return [
