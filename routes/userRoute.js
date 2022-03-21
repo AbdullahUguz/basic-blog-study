@@ -22,9 +22,7 @@ function userValidation(){
   return [
     body('email').isEmail().withMessage('Please Enter Valid Email')
     .custom( async (userEmail) => {
-        console.log("user route de:",userEmail)
         const user = await User.findOne({ where: { email: userEmail } });
-        console.log("user route 2 :",user)
         if(user){
             return Promise.reject('Email is already exists!');
         }

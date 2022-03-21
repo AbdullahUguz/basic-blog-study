@@ -5,7 +5,7 @@ const { validationResult } = require('express-validator');
 exports.createUser = async (req, res) => {
   try {
     await User.create(req.body);
-    res.status(201).redirect('/users/dashboard');
+    res.status(201).redirect('/login');
   } catch (error) {
     const errors = validationResult(req);
 
@@ -103,7 +103,8 @@ exports.updateUser = async (req, res) => {
 exports.adminCreateUser = async (req, res) => {
   try {
     console.log(req.body);
-    await User.create(req.body);
+    const user = await User.create(req.body);
+    req.flash('error', `${user.username} added`);
     res.status(201).redirect('/users/dashboard');
   } catch (error) {
     const errors = validationResult(req);
