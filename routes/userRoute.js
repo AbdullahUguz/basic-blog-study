@@ -10,6 +10,8 @@ const authMiddleware = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
+router.route('/adminCreating').get(authController.adminCreating);
+
 router.route('/signup').post(userValidation(),authController.createUser);
 router.route('/admin/createUser').post(userValidation(),authController.adminCreateUser);
 router.route('/login').post(authController.loginUser);

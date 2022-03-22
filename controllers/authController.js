@@ -116,3 +116,26 @@ exports.adminCreateUser = async (req, res) => {
     res.status(404).redirect('/users/dashboard');
   }
 };
+
+
+exports.adminCreating = async (req,res) => {
+  try {
+    const user = await User.findOne({ where: { email:'admin@gmail.com' } });
+    if(user === null){
+      await User.create(
+        {
+          username: "admin", 
+          email:'admin@gmail.com',
+          password:'12345',role:'admin',
+          createdAt:'2022-03-21 12:51:15',
+          updatedAt:'2022-03-21 12:51:15'
+        });
+      res.status(200).redirect('/login');
+    }else{
+      res.status(20).redirect('/register');
+    }
+   
+  } catch (error) {
+    res.status(404).redirect('/register');
+  }
+}
