@@ -1,7 +1,7 @@
 const mqtt = require('mqtt');
 const client=mqtt.connect('mqtt://broker.mqttdashboard.com');
 
-const topicName ='argebilisimtest';
+const topicName =''; // Your topic name
 
 client.on('connect',function(){
     console.log(`Connected  MQTT`);
