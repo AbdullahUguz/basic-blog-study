@@ -3,7 +3,7 @@ const client = require('../mqtt/mqttConnect');
 exports.publish = async (req, res) => {
   try {
     const messages = req.body.message;
-    const topicName = 'argebilisimtest';
+    const topicName = '';  // your topic name
 
     // mesaj gonderilen kısım
     client.publish(topicName, messages);
