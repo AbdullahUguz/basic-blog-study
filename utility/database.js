@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(
-    'argerf-db',                             // database ismi
+    'basic-blog-db',                             // database name
     'root',                            // root         
     '12345',                           // password
     {

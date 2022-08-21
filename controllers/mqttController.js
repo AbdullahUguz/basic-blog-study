@@ -5,7 +5,7 @@ exports.publish = async (req, res) => {
     const messages = req.body.message;
     const topicName = '';  // your topic name
 
-    // mesaj gonderilen kısım
+    // sending message area
     client.publish(topicName, messages);
     global.msg.push(messages.toString());
 

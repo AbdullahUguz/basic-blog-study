@@ -62,5 +62,5 @@ app.use('/mqtt', mqttRoute);
 const PORT=3000;
 
 app.listen(PORT,()=>{
-    console.log(`Sunucu ${PORT} portundan baslatildi`);
+    console.log(`Server start port : ${PORT}`);
 })
